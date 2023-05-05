@@ -1,0 +1,15 @@
+.userProfile{
+    display: flex;
+    gap: 0.5rem;
+}
+
+.userInfo{
+    display: flex;
+    justify-content:center ;
+    flex-direction: column;
+    font-size: 0.9rem;
+}
+
+.userInfo span:last-child{
+    color: grey;
+}
