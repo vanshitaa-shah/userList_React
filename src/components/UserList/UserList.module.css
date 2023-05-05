@@ -23,6 +23,48 @@ tbody img {
   -webkit-user-drag: none;
 }
 
+.pagination {
+  width: fit-content;
+  display: flex;
+  margin: 15px auto;
+}
+
+.pageNumber,
+.left,
+.right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  margin-left: 5px;
+  height: 2rem;
+  width: 2rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  /* color: rgb(250, 226, 180); */
+  color: rgb(174, 196, 202);
+}
+
+.pagination svg {
+  display: flex;
+}
+
+.pageNumber a:hover {
+  color: rgb(255, 199, 77);
+}
+.active {
+  background-color: orange;
+  border-radius: 50%;
+  color: rgb(255, 255, 255);
+}
+
+.left:hover,
+.right:hover {
+  color: orange;
+  transform: scale(0.85);
+  transition: 0.2s;
+}
+
 @media screen and (max-width: 1200px) {
   .listContainer {
     width: 100%;

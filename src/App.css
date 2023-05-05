@@ -8,6 +8,10 @@
   font-family: "Poppins", sans-serif;
 }
 
+ul {
+  list-style: none;
+}
+
 /* custom CSS */
 .main-container {
   background-color: #e1e1e1;
