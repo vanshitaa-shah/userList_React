@@ -1,0 +1,40 @@
+.listContainer {
+  width: 95%;
+  overflow: auto;
+}
+
+thead,
+tbody {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  text-align: left;
+}
+th,
+td {
+  padding: 0.8rem;
+}
+th {
+  font-size: 1.2rem;
+}
+
+tbody img {
+  border-radius: 50%;
+  -webkit-user-drag: none;
+}
+
+@media screen and (max-width: 1200px) {
+  .listContainer {
+    width: 100%;
+  }
+  table {
+    width: 800px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .listContainer {
+    height: 225px;
+    width: 100%;
+  }
+}
