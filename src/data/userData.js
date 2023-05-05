@@ -55,14 +55,6 @@ const users = [
         status: 'active',
         access: 'read'
     },
-    {
-        id: 8,
-        name: 'Lisa Taylor',
-        profileImg: 'https://randomuser.me/api/portraits/men/11.jpg',
-        email: 'lisa.taylor@example.com',
-        status: 'inactive',
-        access: 'read'
-    }
 ];
 
 export default users;
