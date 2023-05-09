@@ -33,8 +33,8 @@ const User = ({ userInfo }) => {
                 <UserProfile profileInfo={userInfo} showCard={showCardHandler} hideCard={hideCardHandler} />
             </td>
             {
-                userInfo.access === 'owner'
-                    ? <>
+                userInfo.owner ? 
+                    <>
                         <td id={UserStyle.active} >Active</td>
                         <td id={UserStyle.owner}>Owner</td>
                         <td><Lock /></td>
@@ -48,15 +48,14 @@ const User = ({ userInfo }) => {
                         </td>
                         <td>
                             <select name="access" defaultValue={userInfo.access} >
-                                <option value="manager">Manager</option>
-                                <option value="read">Read</option>
+                                <option value="Manager">Manager</option>
+                                <option value="Read">Read</option>
                             </select>
                         </td>
                         <td>
                             <Trash2 />
                         </td>
                     </>}
-
         </tr>
     )
 }
