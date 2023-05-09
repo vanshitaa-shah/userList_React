@@ -3,33 +3,40 @@ import User from '../User/User'
 import ListStyle from './UserList.module.css'
 import ReactPaginate from 'react-paginate'
 import { ArrowLeft,ArrowRight} from 'react-feather';
-import { useState } from 'react'
+import { Oval } from 'react-loader-spinner';
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { userActions } from '../../store/userSlice';
+import { fetchUsers, userActions } from '../../store/userSlice';
+
 
 const UserList = () => {
     const users=useSelector(state=>state.user.users);
     const pageCount=useSelector(state=>state.user.pageCount);
-    const isLoading=useSelector(state=>state.user.isLoading);
-    console.log(isLoading);
+    const status=useSelector(state=>state.user.status);
+    const showPaginate=useSelector(state=>state.user.showPaginate);
     const dispatch=useDispatch();
 
     useEffect(()=>{
-        const getUsers= async()=>{
-            const res= await fetch(`https://servers-omega.vercel.app/users/p?limit=7&page=${pageCount}`);
-            const data=await res.json();
-            dispatch(userActions.toggleLoading());
-            dispatch(userActions.addUsers(data.users))
-        };
-        getUsers();
+        dispatch(fetchUsers(pageCount))
     },[pageCount])
 
     const pageChangeHandler=(data)=>{
         dispatch(userActions.pageChangeHandler(data.selected))
     }
     return (
-        isLoading ? 'Loading...'
+    <>
+        {status==='loading' ?       
+        <Oval
+            height={80}
+            width={80}
+            color="orange"
+            wrapperClass={ListStyle.loader}
+            visible={true}
+            ariaLabel='oval-loading'
+            secondaryColor="rgba(243, 177, 90, 0.5)"
+            strokeWidth={2}
+            strokeWidthSecondary={2}
+        />
         :
         <div className={ListStyle.listContainer}>
         <div >
@@ -61,21 +68,24 @@ const UserList = () => {
 
             </table>
         </div>
-            <ReactPaginate
-                breakLabel="..."
-                previousLabel={<ArrowLeft/>}
-                nextLabel={<ArrowRight/>}
-                pageRangeDisplayed={5}
-                className={ListStyle.pagination}
-                pageClassName={ListStyle.pageNumber}
-                activeClassName={ListStyle.active}
-                previousClassName={ListStyle.left}
-                nextClassName={ListStyle.right}
-                pageCount={5}
-                onPageChange={pageChangeHandler}
-                renderOnZeroPageCount={null}
-            />
-        </div>
+        </div>}
+        {showPaginate&&
+        <ReactPaginate
+            breakLabel="..."
+            previousLabel={<ArrowLeft/>}
+            nextLabel={<ArrowRight/>}
+            pageRangeDisplayed={5}
+            className={ListStyle.pagination}
+            pageClassName={ListStyle.pageNumber}
+            activeClassName={ListStyle.active}
+            previousClassName={ListStyle.left}
+            nextClassName={ListStyle.right}
+            initialPage={pageCount}
+            pageCount={5}
+            onPageChange={pageChangeHandler}
+            renderOnZeroPageCount={null}
+        />}
+    </>
     )
 }
 
