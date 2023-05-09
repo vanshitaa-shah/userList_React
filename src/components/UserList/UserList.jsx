@@ -2,6 +2,7 @@ import React from 'react'
 import User from '../User/User'
 import ListStyle from './UserList.module.css'
 import ReactPaginate from 'react-paginate'
+import Error from '../Error/Error'
 import { ArrowLeft,ArrowRight} from 'react-feather';
 import { Oval } from 'react-loader-spinner';
 import { useEffect } from 'react'
@@ -13,7 +14,6 @@ const UserList = () => {
     const users=useSelector(state=>state.user.users);
     const pageCount=useSelector(state=>state.user.pageCount);
     const status=useSelector(state=>state.user.status);
-    const showPaginate=useSelector(state=>state.user.showPaginate);
     const dispatch=useDispatch();
 
     useEffect(()=>{
@@ -25,7 +25,9 @@ const UserList = () => {
     }
     return (
     <>
-        {status==='loading' ?       
+
+        {/* conditional rendering for  Loader  */}
+        {status==='loading' &&       
         <Oval
             height={80}
             width={80}
@@ -36,8 +38,10 @@ const UserList = () => {
             secondaryColor="rgba(243, 177, 90, 0.5)"
             strokeWidth={2}
             strokeWidthSecondary={2}
-        />
-        :
+        />}
+
+        {/* Content will be rendered once data is fetched */}
+        {status==='success' &&
         <div className={ListStyle.listContainer}>
         <div >
             <table>
@@ -68,8 +72,8 @@ const UserList = () => {
 
             </table>
         </div>
-        </div>}
-        {showPaginate&&
+
+        {/* For pagination */}
         <ReactPaginate
             breakLabel="..."
             previousLabel={<ArrowLeft/>}
@@ -84,10 +88,18 @@ const UserList = () => {
             pageCount={5}
             onPageChange={pageChangeHandler}
             renderOnZeroPageCount={null}
-        />}
+        />
+
+        </div>}
+
+        {/* Error Handling  */}
+        {status==='failed' && 
+           <Error/>
+        }
+
     </>
     )
 }
 
 
-export default UserList
+export default UserList;
